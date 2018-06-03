@@ -1,0 +1,2 @@
+# SortingAlgorithmVisualizer
+A framework in which you can implement sorting algorithms on lists and test them with a visual representation of the list. Here are the lists visualized as a bar graph where each element in the list is a bar in the graph and the height of the bar represents the value of the element. Mutations on the list are immediately shown in the bar graph. Also when two elements are compared they are highlighted.
