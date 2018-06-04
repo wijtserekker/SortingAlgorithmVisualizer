@@ -32,11 +32,6 @@ class List:
             self.array[index1], self.array[index2] = self.array[index2], self.array[index1]
             self.view.update(self, False, index1, index2)
 
-    def move(self, index1, index2):
-        if index1 != index2:
-            self.array.insert(index2, self.array.pop(index1))
-            self.view.update(self, False)
-
     def copy(self):
         copy = List(0, self.view)
         copy.array = self.array.copy()
