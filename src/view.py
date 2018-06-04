@@ -1,10 +1,11 @@
+import math
 from threading import Thread, Condition
 from time import sleep
 from tkinter import *
 
 from list import List
 
-list_size = 1120
+list_size = 512
 default_width = 1200
 default_height = 600
 pad_x = 40
@@ -194,6 +195,102 @@ def shell_sort(l: List):
                 inner = inner - interval
         interval = int((interval-1) / 3)
 
+
+def heap_sort(l: List):
+    n = list_size
+
+    for i in range(n, -1, -1):
+        heapify(l, n, i)
+
+    for i in range(n - 1, 0, -1):
+        l.swap(0, i)
+        heapify(l, i, 0)
+
+
+def heapify(l: List, n, i):  # Heap sort helper function
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+
+    if left < n and l[i] < l[left]:
+        largest = left
+
+    if right < n and l[largest] < l[right]:
+        largest = right
+
+    if largest != i:
+        l.swap(largest, i)
+        heapify(l, n, largest)
+
+
+def cocktail_shaker_sort(l: List):
+    swapped = True
+    while swapped:
+        swapped = False
+        for i in range(0, list_size-1):
+            if l[i] > l[i+1]:
+                l.swap(i, i+1)
+                swapped = True
+        if not swapped:
+            break
+        for i in range(list_size-2, -1, -1):
+            if l[i] > l[i+1]:
+                l.swap(i, i+1)
+                swapped = True
+
+
+def bitonic_sort(l: List, up=True, lo=0, hi=list_size-1):
+    if math.log(list_size, 2) % 1 > 0:
+        print('ERROR: List length must be a power of 2 when sorting with bitonic sort.')
+        return
+    l_size = hi - lo + 1
+    if l_size < 2:
+        return
+    else:
+        bitonic_sort(l, True, int(lo + math.floor(l_size / 2)), hi)
+        bitonic_sort(l, False, lo, int(hi - math.ceil(l_size / 2)))
+        bitonic_merge(l, up, lo, hi)
+
+
+def bitonic_merge(l: List, up: bool, lo: int, hi: int):  # Bitonic sort helper function
+    l_size = hi - lo + 1
+    if l_size < 2:
+        return
+    else:
+        bitonic_compare(l, up, lo, hi)
+        bitonic_merge(l, up, int(lo + math.floor(l_size / 2)), hi)
+        bitonic_merge(l, up, lo, int(hi - math.ceil(l_size / 2)))
+
+
+def bitonic_compare(l: List, up: bool, lo: int, hi: int):  # Bitonic sort helper function
+    l_size = hi - lo + 1
+    dist = l_size // 2
+    for i in range(lo, lo + dist):
+        if (l[i] > l[i + dist]) == up:
+            l.swap(i, i + dist)
+
+
+def merge_sort(l: List, lo=0, hi=list_size-1):
+    l_size = hi - lo + 1
+    if l_size < 2:
+        return
+    merge_sort(l, lo, int(hi - math.ceil(l_size / 2)))
+    merge_sort(l, int(lo + math.floor(l_size / 2)), hi)
+    merge(l, lo, int(hi - math.ceil(l_size / 2)), int(lo + math.floor(l_size / 2)), hi)
+
+
+def merge(l: List, lo1: int, hi1: int, lo2: int, hi2: int):  # Merge sort helper function
+    while lo1 <= hi1 and lo2 <= hi2:
+        if l[lo1] < l[lo2]:
+            lo1 += 1
+        else:
+            left_size = hi1 - lo1 + 1
+            for i in range(0, left_size):
+                l.swap(lo1+i, lo2)
+            lo2 += 1
+            lo1 += 1
+            hi1 += 1
+
 # =====================================================
 # =====================================================
 # =====================================================
@@ -202,7 +299,7 @@ def shell_sort(l: List):
 def sort(l: List):
     sleep(1)
 
-    shell_sort(l)
+    heap_sort(l)
 
     l.high_lighted1 = -1
     l.high_lighted2 = -1
