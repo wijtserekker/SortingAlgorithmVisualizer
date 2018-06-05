@@ -23,7 +23,7 @@ class FormView:
         self.sort_algo = StringVar(master)
         self.sort_algo.set("bubble sort")
         OptionMenu(master, self.sort_algo, "bubble sort", "insertion sort", "selection sort"
-                   , "quick sort", "shell sort", "heap sort", "cocktail shaker sort", "bitonic sort"
+                   , "quick sort", "shell sort", "comb sort", "heap sort", "cocktail shaker sort", "bitonic sort"
                    , "merge sort").grid(row=1, columnspan=2, pady=(0, 10))
         Button(master, text="Start", command=self.on_start).grid(row=2, columnspan=2, pady=(0, 10))
         self.root.update()

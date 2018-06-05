@@ -24,6 +24,7 @@ sort_algos["insertion sort"] = insertion_sort
 sort_algos["selection sort"] = selection_sort
 sort_algos["quick sort"] = quick_sort
 sort_algos["shell sort"] = shell_sort
+sort_algos["comb sort"] = comb_sort
 sort_algos["heap sort"] = heap_sort
 sort_algos["cocktail shaker sort"] = cocktail_shaker_sort
 sort_algos["bitonic sort"] = bitonic_sort

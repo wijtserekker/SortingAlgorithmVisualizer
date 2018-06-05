@@ -180,3 +180,26 @@ def merge(l: List, lo1: int, hi1: int, lo2: int, hi2: int):  # Merge sort helper
             hi1 += 1
 
 # =====================================================
+
+
+def comb_sort(l: List):
+    gap = len(l)
+    shrink = 1.3
+    is_sorted = False
+
+    while not is_sorted:
+        gap = int(gap / shrink)
+
+        if gap > 1:
+            is_sorted = False
+        else:
+            gap = 1
+            is_sorted = True
+
+        for i in range(0, len(l)-gap):
+            if l[i] > l[i+gap]:
+                l.swap(i, i+gap)
+                is_sorted = False
+
+
+# =====================================================
