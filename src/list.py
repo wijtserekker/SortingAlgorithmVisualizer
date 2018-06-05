@@ -1,11 +1,12 @@
 import random
+from collections import Sized
 
 from elem import Elem
 
 
-class List:
+class List(Sized):
 
-    def __init__(self, n: 'int', view: 'View'):
+    def __init__(self, n: int, view: 'View'):
         self.view = view
         sorted_array = []
         for i in range(1, n+1):
@@ -25,6 +26,9 @@ class List:
 
     def __getitem__(self, item):
         return self.array[item]
+
+    def __len__(self):
+        return len(self.array)
 
     def swap(self, index1, index2):
         if index1 != index2:
